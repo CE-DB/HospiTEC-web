@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+
             "outputPath": "dist/Hospitecapp",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -62,7 +63,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Hospitecapp:build"
+            "browserTarget": "Hospitecapp:build",
+            "port": 5000
           },
           "configurations": {
             "production": {
