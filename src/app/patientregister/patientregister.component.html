@@ -1,0 +1,130 @@
+<hr id="navbar-separator">    
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+    <a href="patient/register" class="nav-link">Register</a>
+    <a href="patient/record" class="nav-link">Record</a>
+    <a href="patient/reservation" class="nav-link">Reservation</a>
+    <a href="patient/evaluation" class="nav-link">Evaluation</a>
+</nav>
+<hr id="navbar-separator">    
+
+<div class="row">
+
+    <!-- Entity col -->
+    <div class="col-sm pad-col">
+        <!-- Entity name here-->
+        <h2 class="center-text" id="entitytitle">Patient</h2>
+        <hr>
+        <!--Set up for loop accordingly-->
+        <div class="pad-list" *ngFor="let element of elementList;">
+            <div clas="row">
+                <button (click)="selectElement($event)"  class="center-content btn btn-outline-dark"
+                    id="{{element.firstName}}">
+                    {{element.firstName}}
+                </button>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-sm pad-col">
+        <h2 class="center-text" id="edittitle">Edit</h2>
+        <hr>
+        <!-- Every attribute should follow this-->
+        <div class="pad-all">
+            <div class="row">
+                <ng-container *ngIf="elementList[currentElementIndex]; else elseBlock1">
+                <label>{{ elementList[currentElementIndex].name || "No name selected"}}</label>
+            </ng-container>
+            <ng-template #elseBlock1>No name selected</ng-template>
+            </div>
+            <div class="row">
+                <input id="input1" placeholder="New name">
+            </div>
+            <div class="row">
+                <ng-container *ngIf="elementList[currentElementIndex]; else elseBlock2">
+                <label>{{ elementList[currentElementIndex].description || "No name selected"}}</label>
+            </ng-container>
+            <ng-template #elseBlock2>No description selected</ng-template>
+            </div>
+            <div class="row">
+                <input id="input2" placeholder="New description">
+            </div>
+            <div class="row">
+                <ng-container *ngIf="elementList[currentElementIndex]; else elseBlock3">
+                <label>{{ elementList[currentElementIndex].symptoms || "No name selected"}}</label>
+            </ng-container>
+            <ng-template #elseBlock3>No symptoms selected</ng-template>
+            </div>
+            <div class="row">
+                <input id="input3" placeholder="New symptoms">
+            </div>
+            <div class="row">
+                <ng-container *ngIf="elementList[currentElementIndex]; else elseBlock4">
+                <label>{{ elementList[currentElementIndex].treatment || "No name selected"}}</label>
+            </ng-container>
+            <ng-template #elseBlock4>No treatment selected</ng-template>
+            </div>
+            <div class="row">
+                <input id="input4" placeholder="New treatment">
+            </div>
+            
+            <hr>
+
+            <!-- buttons-->
+            <div class="row">   
+                <button (click)="updateElement($event)" class="center-content btn btn-outline-warning">
+                    Update
+                </button>
+            <!-- Sustitute with status returned-->
+            </div>
+            <hr>
+            <div class="row">
+                <button (click)="deleteElement($event)" class="center-content btn btn btn-outline-danger">
+                    Delete
+                </button>
+            <!-- Sustitute with status returned-->
+            </div>
+            <hr>
+            <div class="row">
+                <label>{{"Cambios realizados se mostraran aquí"}}</label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Create col -->
+    <div class="col-sm pad-col">
+        <h2 class="center-text" id="createtitle">Create</h2>
+        <hr>
+        <div class="pad-all">
+            
+            <!-- All attributes needed to create entity here-->
+            <div class="row">
+                <input id="get1" placeholder="Name">
+            </div>
+            <div class="row">
+                <input id="get2" placeholder="Description">
+            </div>
+            <div class="row">
+                <input id="get3" placeholder="Symptoms">
+            </div>
+            <div class="row">
+                <input id="get4" placeholder="Treatment">
+            </div>
+
+            <hr>
+
+            <!-- Create button and response -->
+            <div class="row">
+                <button (click)="addElement($event)" class="center-content btn btn-outline-primary">
+                    Create
+                </button>
+            </div>
+            <hr>
+            <div class="row">
+                <!-- Sustitute with status returned-->
+                <label>{{"Estado de creación se mostrará aquí"}}</label>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+* {
+    font-family: Verdana, Geneva, sans-serif;
+	font-style: normal; font-variant: normal   
+}
+
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto;
+ }
+
+ #topdiv {
+    --success-color: #32cd5d;
+    --create-color: #167fe9;
+    --update-color: #eead11;
+    --delete-color: #e91644;
+    --special-purple: #7a23c2;
+ }
+
+
+#mainimg {
+    width: 48px;
+    height: 48px;
+    float: right;
+}
+
+#pagetitle {
+    color: white;
+    margin: 0;
+    width: 50%;
+    padding: 10px;
+}
+
+#topbanner {
+    background-color: #2B2649;
+}
+
+#ac {
+    float: left;
+}
+
