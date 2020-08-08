@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 import { CRUD } from '../interfaces/crud';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import { variable } from '@angular/compiler/src/output/output_ast';
+import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 
 
 @Component({
@@ -13,8 +15,9 @@ import gql from "graphql-tag";
 export class PatientregisterComponent implements OnInit, CRUD {
 
   constructor(private apollo: Apollo, private router: Router) { }
-  alreadyHasProfile = false;
   
+  alreadyHasProfile = false;
+
   elementList: any[];
   currentElementIndex: number;
 
@@ -46,7 +49,6 @@ export class PatientregisterComponent implements OnInit, CRUD {
       address: $address
       birthDate: $birthDate
     }) {
-      firstName
       identification
     }
   }`;
@@ -59,7 +61,20 @@ export class PatientregisterComponent implements OnInit, CRUD {
     }
   }`;
 
-  updateQuery: object;
+  updateQuery = gql`
+  mutation updatePatient($oi: String!, $fn: String, $ln: String!, $pn: String, $canton: String!, $province: String!, $address: String!, $bd: Date!){
+    updatePatient(input: {
+      oldId: $io
+      firstName: $fn
+      lastName: $ln
+      phoneNumber: $pn
+      canton: $canton
+      province: $province
+      address: $address
+      birthDate: $bd
+    })
+  }`;
+
   deleteQuery: object;
   selectElement(event: any): null {
     throw new Error("Method not implemented.");
@@ -78,16 +93,25 @@ export class PatientregisterComponent implements OnInit, CRUD {
                     birthDate: new Date((<HTMLInputElement>document.getElementById("get8")).value)}
       }).subscribe(({data}) => {
         document.getElementById("creationFeedback").innerHTML = "Successful creation";
+        this.addPassword();
       }, (error) => {
         document.getElementById("creationFeedback").innerHTML = error;
       })
+    }
+    catch(e) {
+      console.log(e);
+    }
+  }
 
+  addPassword() {
+    try {
       this.apollo.mutate<any>({
         mutation: this.passQuery,
         variables: {pi: (<HTMLInputElement>document.getElementById("get1")).value,
                     pass: (<HTMLInputElement>document.getElementById("get9")).value}
       }).subscribe(({data}) => {
         document.getElementById("authFeedback").innerHTML = "Created user, log in with identification and password";
+        localStorage.setItem("patientid", data.createPatient.identification);
       }, (error) => {
         document.getElementById("authFeedback").innerHTML = error;
       })
@@ -96,8 +120,27 @@ export class PatientregisterComponent implements OnInit, CRUD {
       console.log(e);
     }
   }
-  updateElement(event: any): null {
-    throw new Error("Method not implemented.");
+
+  updateElement(event: any) {
+    try {
+      this.apollo.mutate<any>({
+        mutation: this.updateQuery,
+        variables: {oi: (<HTMLInputElement>document.getElementById("input1")).value,
+                    fn: (<HTMLInputElement>document.getElementById("input2")).value,
+                    pn: (<HTMLInputElement>document.getElementById("input3")).value,
+                    province: (<HTMLInputElement>document.getElementById("input4")).value,
+                    canton: (<HTMLInputElement>document.getElementById("input5")).value,
+                    address: (<HTMLInputElement>document.getElementById("input6")).value,
+                    bd: new Date((<HTMLInputElement>document.getElementById("input7")).value)}
+      }).subscribe(({data}) => {
+          document.getElementById("updateFeedback").innerHTML = "Updated profile";
+      }, (error) => {
+          document.getElementById("updateFeedback").innerHTML = error;
+      })
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
   deleteElement(event: any): null {
     throw new Error("Method not implemented.");
@@ -105,16 +148,25 @@ export class PatientregisterComponent implements OnInit, CRUD {
 
   ngOnInit(): void {
 
-    if (localStorage.getItem("PatientToken")) {
+    if (localStorage.getItem("PatientToken") && localStorage.getItem("patientid")) {
       this.alreadyHasProfile = true;
+
+      this.apollo.watchQuery<any>({
+        query: this.entityQuery
+      }).valueChanges.subscribe(signal => {
+        this.elementList = signal.data.patients;
+      })
+
+      let i;
+      for (i = 0; i < this.elementList.length; i++) {
+        if (localStorage.getItem("patientid") == this.elementList[i]) {
+          this.currentElementIndex = i;
+          break;
+        }
+      }
+
+
     }
 
-    /*
-    this.apollo.watchQuery<any>({
-      query: this.entityQuery
-    }).valueChanges.subscribe(signal => {
-      this.elementList = signal.data.patients;
-    })
-    */
   }
 }
