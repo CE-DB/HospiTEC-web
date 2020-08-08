@@ -1,1 +1,71 @@
-<p>doctorpatient works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="doctor/patient" class="nav-link">Add Patient</a>
+  <a href="doctor/record" class="nav-link">Records</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <div class="col pad-col">
+    <h2 class="center-text" id="createtitle">Create</h2>
+    <hr />
+
+    <div class="pad-all">
+      
+        <!-- All attributes needed to create entity here-->
+        <div class="row">
+          <input id="get1" placeholder="Identification" />
+        </div>
+        <div class="row">
+          <input id="get2" placeholder="First Name" />
+        </div>
+        <div class="row">
+          <input id="get3" placeholder="Last Name" />
+        </div>
+        <div class="row">
+          <input id="get4" placeholder="Phone Number" />
+        </div>
+        <div class="row">
+          <input id="get5" placeholder="Canton" />
+        </div>
+        <div class="row">
+          <input id="get6" placeholder="Province" />
+        </div>
+        <div class="row">
+          <input id="get7" placeholder="Address" />
+        </div>
+        <div class="row">
+          <input id="get8" placeholder="Birthday" />
+        </div>
+        <div class="row">
+          <input id="get9" placeholder="Password" />
+
+          <hr />
+
+          <!-- Create button and response -->
+          <div class="row">
+            <button
+              (click)="addElement($event)"
+              class="center-content btn btn-outline-primary"
+            >
+              Create
+            </button>
+          </div>
+          <hr />
+        
+      </div>
+      <hr />
+    
+      <div class="row">
+        <!-- Sustitute with status returned-->
+        <label id="creationFeedback"></label>
+      </div>
+
+      <div class="row">
+        <!-- Sustitute with status returned-->
+        <label id="authFeedback"></label>
+      </div>
+    </div>
+  </div>
+</div>

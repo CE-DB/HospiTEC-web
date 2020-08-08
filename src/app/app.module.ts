@@ -24,6 +24,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { LoginpatientComponent } from './loginpatient/loginpatient.component';
 import { LogindoctorComponent } from './logindoctor/logindoctor.component';
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
+import { AdminequipmentComponent } from './adminequipment/adminequipment.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LoginadminComponent } from './loginadmin/loginadmin.component';
     PatientreservationComponent,
     LoginpatientComponent,
     LogindoctorComponent,
-    LoginadminComponent
+    LoginadminComponent,
+    AdminequipmentComponent
   ],
   imports: [
     BrowserModule,

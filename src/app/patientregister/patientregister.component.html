@@ -10,10 +10,20 @@
 
 <div class="row">
   <div *ngIf="alreadyHasProfile == true">
-    <div class="col-sm pad-col">
+    <div class="col pad-col">
       <h2 class="center-text" id="edittitle">Edit Profile</h2>
       <hr />
       <!-- Every attribute should follow this-->
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock0">
+          <label>id: {{
+            elementList[currentElementIndex].identification || "No identification selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock0>No first id found</ng-template>
+      </div>
+
+      <hr>
       <div class="pad-all">
         <div class="row">
           <ng-container *ngIf="elementList; else elseBlock1">
@@ -40,7 +50,7 @@
         <div class="row">
           <ng-container *ngIf="elementList; else elseBlock3">
             <label>{{
-              elementList[currentElementIndex].phoneNumer || "No name selected"
+              elementList[currentElementIndex].phoneNumber || "No name selected"
             }}</label>
           </ng-container>
           <ng-template #elseBlock3>No phone number selected</ng-template>
@@ -65,7 +75,7 @@
               elementList[currentElementIndex].canton || "No name selected"
             }}</label>
           </ng-container>
-          <ng-template #elseBlock4>No canton selected</ng-template>
+          <ng-template #elseBlock5>No canton selected</ng-template>
         </div>
         <div class="row">
           <input id="input5" placeholder="New canton" />
@@ -73,10 +83,10 @@
         <div class="row">
           <ng-container *ngIf="elementList; else elseBlock6">
             <label>{{
-              elementList[currentElementIndex].address || "No name selected"
+              elementList[currentElementIndex].exactAddress || "No name selected"
             }}</label>
           </ng-container>
-          <ng-template #elseBlock4>No address selected</ng-template>
+          <ng-template #elseBlock6>No address selected</ng-template>
         </div>
         <div class="row">
           <input id="input6" placeholder="New address" />
@@ -87,7 +97,7 @@
               elementList[currentElementIndex].birthDate || "No name selected"
             }}</label>
           </ng-container>
-          <ng-template #elseBlock4>No birthday selected</ng-template>
+          <ng-template #elseBlock7>No birthday selected</ng-template>
         </div>
         <div class="row">
           <input id="input7" placeholder="New birthday" />
@@ -127,7 +137,7 @@
   </div>
 
   <!-- Create col -->
-  <div class="col-sm pad-col">
+  <div class="col pad-col">
     <h2 class="center-text" id="createtitle">Create</h2>
     <hr />
 

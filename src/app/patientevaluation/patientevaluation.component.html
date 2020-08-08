@@ -1,1 +1,133 @@
-<p>patientevaluation works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="patient/register" class="nav-link">Register</a>
+  <a href="patient/record" class="nav-link">Record</a>
+  <a href="patient/reservation" class="nav-link">Reservation</a>
+  <a href="patient/evaluation" class="nav-link">Evaluation</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <!-- Entity col -->
+  <div class="col-sm pad-col">
+    <!-- Entity name here-->
+    <h2 class="center-text" id="entitytitle">
+      Choose Staff
+    </h2>
+    <hr />
+    <!--Set up for loop accordingly-->
+    <div class="pad-list" *ngFor="let element of elementList">
+      <div clas="row">
+        <button
+          (click)="selectedStaffMember($event.target.attributes.id.nodeValue)"
+          class="center-content btn btn-outline-dark"
+          id="{{ element.person.identification }}"
+        >
+          {{ element.person.firstName }} {{element.person.lastName}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Create col -->
+  <div class="col pad-col">
+    <h2 class="center-text" id="createtitle">Evaluate Staff</h2>
+    <hr />
+
+    <div class="pad-all">
+      
+        <!-- All attributes needed to create entity here-->
+        <h2>Selected staff ID</h2>
+        <label id="staffMember"></label>
+
+        <h2>Rating</h2>
+        <div class="row">
+          <select id="get3" (change)="selectStaffEvaluation()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <hr />
+
+        <!-- Create button and response -->
+        <div class="row">
+          <button
+            (click)="addStaffReview($event)"
+            class="center-content btn btn-outline-primary"
+          >
+            Send
+          </button>
+        </div>
+        <hr />
+      
+    </div>
+    <div class="row">
+      <!-- Sustitute with status returned-->
+      <label id="creationFeedback2"></label>
+    </div>
+  </div>
+
+  <!-- Create col -->
+  <div class="col pad-col">
+    <h2 class="center-text" id="createtitle">Evaluate Hospital</h2>
+    <hr />
+
+    <div class="pad-all">
+      <div *ngIf="yetToReviewHospital == true; else elseBlock">
+        <!-- All attributes needed to create entity here-->
+        <h2>Category</h2>
+        <div class="row">
+          <select id="get1" (change)="selectElement($event)">
+            <option value="1">Medical Rooms</option>
+            <option value="2">Comfort</option>
+            <option value="3">Staff treatment</option>
+            <option value="4">General cleaness</option>
+            <option value="5">Security</option>
+            <option value="6">Costumer Service</option>
+          </select>
+        </div>
+
+        <h2>Rating</h2>
+        <div class="row">
+          <select id="get2" (change)="selectEvaluation($event)">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <hr />
+
+        <!-- Create button and response -->
+        <div class="row">
+          <button
+            (click)="addElement($event)"
+            class="center-content btn btn-outline-primary"
+          >
+            Send
+          </button>
+        </div>
+        <hr />
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <ng-template #elseBlock
+        ><h1 style="color: var(--success-color)">
+          Thank you, your review has been submited!
+        </h1></ng-template
+      >
+    </div>
+    <div class="row">
+      <!-- Sustitute with status returned-->
+      <label id="creationFeedback"></label>
+    </div>
+  </div>
+
+</div>

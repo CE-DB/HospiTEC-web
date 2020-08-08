@@ -33,6 +33,7 @@ export class LoginpatientComponent implements OnInit {
                     role: this.roleString}
       }).subscribe(({data}) => {
         localStorage.setItem("PatientToken", data.authentication.accessKey);
+        localStorage.setItem("patientid", (<HTMLInputElement>document.getElementById("user")).value)
         this.router.navigate(["/patient"]);
       }, (error) => {
         document.getElementById("feedback").innerHTML = "There was an error, please check the provided information"
@@ -40,7 +41,8 @@ export class LoginpatientComponent implements OnInit {
     }
     catch(e) {
       document.getElementById("feedback").innerHTML = "There was an error sending the query"
+      
     }
   }
-
+  
 }

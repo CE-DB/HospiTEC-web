@@ -1,1 +1,190 @@
-<p>patientreservation works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="patient/register" class="nav-link">Register</a>
+  <a href="patient/record" class="nav-link">Record</a>
+  <a href="patient/reservation" class="nav-link">Reservation</a>
+  <a href="patient/evaluation" class="nav-link">Evaluation</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <!-- Entity col -->
+  <div class="col-sm pad-col">
+    <!-- Entity name here-->
+    <h2 class="center-text" id="entitytitle">Reservations by check in date</h2>
+    <hr />
+    <!--Set up for loop accordingly-->
+    <div class="pad-list" *ngFor="let element of elementList">
+      <div clas="row">
+        <button
+          (click)="selectElement($event.target.attributes.id.nodeValue)"
+          class="center-content btn btn-outline-dark"
+          id="{{ element.idBed }}"
+        >
+          {{ element.checkInDate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--Edit column-->
+
+  <div class="col-sm pad-col">
+    <h2 class="center-text" id="edittitle">Edit</h2>
+    <hr />
+    <!-- Every attribute should follow this-->
+    <div class="pad-all">
+      <div class="row">
+        <h2>Bed id</h2>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock1">
+          <label>{{
+            elementList[currentElementIndex].idBed || "No patient selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock1>No date selected</ng-template>
+      </div>
+
+      <div class="row">
+        <h2>Procedures</h2>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock0">
+            <div class="row">
+                <select id="proceduresShow"> </select>
+              </div>
+        </ng-container>
+        <ng-template #elseBlock0>No date selected</ng-template>
+      </div>
+
+      <div class="row">
+        <h2>Check in date</h2>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock2">
+          <label>{{
+            elementList[currentElementIndex].checkInDate || "No patient selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock2>No date selected</ng-template>
+      </div>
+
+      <div class="row">
+        <h2>Check out date</h2>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock3">
+          <label>{{ elementList[currentElementIndex].checkOutDate || "No patient selected" }}</label>
+        </ng-container>
+        <ng-template #elseBlock3>No date selected</ng-template>
+      </div>
+      
+      <div class="row">
+        <h2>ICU state</h2>
+      </div>
+      <div class="row">
+        <select id="icuSelectUpdate">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <h2>Add a procedure</h2>
+      </div>
+
+      <div class="row">
+        <select id="proceduresSelect2"> </select>
+      </div>
+
+      <div class="row">
+        <button
+          (click)="appendProcedureAdded()"
+          class="center-content btn btn-outline-warning"
+        >
+          Add Procedure
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+
+
+      <div class="row">
+        <button
+          (click)="appendProcedureDeleted()"
+          class="center-content btn btn-outline-warning"
+        >
+          Delete Procedure
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+
+      <div class="row">
+          <label id="pFeedback"></label>
+      </div>
+
+      <hr />
+
+      <!-- buttons-->
+      <div class="row">
+        <button
+          (click)="updateElement($event)"
+          class="center-content btn btn-outline-warning"
+        >
+          Update
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+      <hr />
+
+      <div class="row">
+        <label id="editFeedback"></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create col -->
+  <div class="col-sm pad-col">
+    <h2 class="center-text" id="createtitle">Create</h2>
+    <hr />
+    <div class="pad-all">
+      <!-- All attributes needed to create entity here-->
+      <div class="row">
+        <input id="get1" placeholder="Check In Date" />
+      </div>
+
+      <div class="row">
+        <h2>Procedure</h2>
+      </div>
+      <div class="row">
+        <select id="proceduresSelect"> </select>
+      </div>
+      <div class="row">
+        <h2>ICU</h2>
+      </div>
+      <div class="row">
+        <select id="icuSelect">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <hr />
+
+      <!-- Create button and response -->
+      <div class="row">
+        <button
+          (click)="addElement($event)"
+          class="center-content btn btn-outline-primary"
+        >
+          Create
+        </button>
+      </div>
+      <hr />
+      <div class="row">
+        <!-- Sustitute with status returned-->
+        <label id="creationFeedback"></label>
+      </div>
+    </div>
+  </div>
+</div>

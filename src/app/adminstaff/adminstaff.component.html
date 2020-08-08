@@ -1,1 +1,255 @@
-<p>adminstaff works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="admin/staff" class="nav-link">Add Staff</a>
+  <a href="admin/procedure" class="nav-link">Procedures</a>
+  <a href="admin/medicalroom" class="nav-link">Medical Rooms</a>
+  <a href="admin/bed" class="nav-link">Beds</a>
+  <a href="admin/equipment" class="nav-link">Equipment</a>
+  <a href="admin/sync" class="nav-link">Sync</a>
+  <a href="admin/Reports" class="nav-link">Reports</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <!-- Entity col -->
+  <div class="col-sm pad-col">
+    <!-- Entity name here-->
+    <h2 class="center-text" id="entitytitle">
+      Staff
+    </h2>
+    <hr />
+    <!--Set up for loop accordingly-->
+    <div class="pad-list" *ngFor="let element of elementList">
+      <div clas="row">
+        <button
+          (click)="selectElement($event)"
+          class="center-content btn btn-outline-dark"
+          id="{{ element.person.identification }}"
+        >
+          {{ element.person.firstName }} {{ element.person.lastName }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col pad-col">
+    <h2 class="center-text" id="edittitle">Edit Profile</h2>
+    <hr />
+    <div class="row">
+      <h2>Role</h2>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="elementList; else elseBlock0">
+        <label>{{
+          elementList[currentElementIndex].role || "No name selected"
+        }}</label>
+      </ng-container>
+      <ng-template #elseBlock0>No role selected</ng-template>
+    </div>
+    <div class="row">
+      <input id="input0" placeholder="New role" />
+    </div>
+
+    <!-- Every attribute should follow this-->
+    <div class="row">
+      <ng-container *ngIf="elementList; else elseBlock0">
+        <label
+          >id:
+          {{
+            elementList[currentElementIndex].person.identification ||
+              "No identification selected"
+          }}</label
+        >
+      </ng-container>
+      <ng-template #elseBlock0>No first id found</ng-template>
+    </div>
+
+    <hr />
+    <div class="pad-all">
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock1">
+          <label>{{
+            elementList[currentElementIndex].person.firstName ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock1>No first name selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input1" placeholder="New first name" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock2">
+          <label>{{
+            elementList[currentElementIndex].person.lastName ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock2>No last name</ng-template>
+      </div>
+      <div class="row">
+        <input id="input2" placeholder="New last name" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock3">
+          <label>{{
+            elementList[currentElementIndex].person.phoneNumber ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock3>No phone number selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input3" placeholder="New phone number" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock4">
+          <label>{{
+            elementList[currentElementIndex].person.province ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock4>No province selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input4" placeholder="New province" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock5">
+          <label>{{
+            elementList[currentElementIndex].person.canton || "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock5>No canton selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input5" placeholder="New canton" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock6">
+          <label>{{
+            elementList[currentElementIndex].person.exactAddress ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock6>No address selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input6" placeholder="New address" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock7">
+          <label>{{
+            elementList[currentElementIndex].person.birthDate ||
+              "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock7>No birthday selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input7" placeholder="New birthday" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock8">
+          <label>{{
+            elementList[currentElementIndex].admissionDate || "No name selected"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock8>No staff selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input8" placeholder="New admission date" />
+      </div>
+      <div class="row">
+        <input id="input9" placeholder="New password" />
+      </div>
+
+      <hr />
+
+      <!-- buttons-->
+      <div class="row">
+        <button
+          (click)="updateElement($event)"
+          class="center-content btn btn-outline-warning"
+        >
+          Update
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+      <hr />
+      <div class="row">
+        <button
+          (click)="deleteElement($event)"
+          class="center-content btn btn btn-outline-danger"
+        >
+          Delete
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+      <hr />
+      <div class="row">
+        <label id="updateFeedback"></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col pad-col">
+    <h2 class="center-text" id="createtitle">Create</h2>
+    <hr />
+
+    <div class="pad-all">
+      <!-- All attributes needed to create entity here-->
+      <div class="row">
+        <input id="get1" placeholder="Identification" />
+      </div>
+      <div class="row">
+        <input id="get2" placeholder="First Name" />
+      </div>
+      <div class="row">
+        <input id="get3" placeholder="Last Name" />
+      </div>
+      <div class="row">
+        <input id="get4" placeholder="Phone Number" />
+      </div>
+      <div class="row">
+        <input id="get5" placeholder="Canton" />
+      </div>
+      <div class="row">
+        <input id="get6" placeholder="Province" />
+      </div>
+      <div class="row">
+        <input id="get7" placeholder="Address" />
+      </div>
+      <div class="row">
+        <input id="get8" placeholder="Birthday" />
+      </div>
+      <div class="row">
+        <input id="get9" placeholder="Role" />
+      </div>
+      <div class="row">
+        <input id="get10" placeholder="Admision Date" />
+      </div>
+      <div class="row">
+        <input id="get11" placeholder="Password" />
+      </div>
+      <hr />
+
+      <!-- Create button and response -->
+      <div class="row">
+        <button
+          (click)="addElement($event)"
+          class="center-content btn btn-outline-primary"
+        >
+          Create
+        </button>
+      </div>
+      <hr />
+    </div>
+    <hr />
+    <div class="row">
+      <!-- Sustitute with status returned-->
+      <label id="creationFeedback"></label>
+    </div>
+  </div>
+</div>

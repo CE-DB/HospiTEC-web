@@ -1,1 +1,125 @@
-<p>adminprecedures works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="admin/staff" class="nav-link">Add Staff</a>
+  <a href="admin/procedure" class="nav-link">Procedures</a>
+  <a href="admin/medicalroom" class="nav-link">Medical Rooms</a>
+  <a href="admin/bed" class="nav-link">Beds</a>
+  <a href="admin/equipment" class="nav-link">Equipment</a>
+  <a href="admin/sync" class="nav-link">Sync</a>
+  <a href="admin/Reports" class="nav-link">Reports</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <!-- Entity col -->
+  <div class="col-sm pad-col">
+    <!-- Entity name here-->
+    <h2 class="center-text" id="entitytitle">
+      Procedures
+    </h2>
+    <hr />
+    <!--Set up for loop accordingly-->
+    <div class="pad-list" *ngFor="let element of elementList">
+      <div clas="row">
+        <button
+          (click)="selectElement($event.target.attributes.id.nodeValue)"
+          class="center-content btn btn-outline-dark"
+          id="{{ element.name }}"
+        >
+          {{ element.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col pad-col">
+    <h2 class="center-text" id="edittitle">Edit Profile</h2>
+    <div class="row">
+      <ng-container *ngIf="elementList; else elseBlock0">
+        <label>{{
+          elementList[currentElementIndex].name || "No name selected"
+        }}</label>
+      </ng-container>
+      <ng-template #elseBlock0>No role selected</ng-template>
+    </div>
+    <div class="row">
+      <input id="input0" placeholder="New role" />
+    </div>
+
+    <!-- Every attribute should follow this-->
+    <div class="row">
+      <ng-container *ngIf="elementList; else elseBlock0">
+        <label>
+          {{
+            elementList[currentElementIndex].recoveringDays ||
+              "No procedure selected"
+          }}</label
+        >
+      </ng-container>
+      <ng-template #elseBlock0>No procedure selected</ng-template>
+    </div>
+    <div class="row">
+      <input id="input1" placeholder="New name" />
+    </div>
+
+    <div class="pad-all">
+      <hr />
+      <!-- buttons-->
+      <div class="row">
+        <button
+          (click)="updateElement($event)"
+          class="center-content btn btn-outline-warning"
+        >
+          Update
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+      <hr />
+      <div class="row">
+        <button
+          (click)="deleteElement($event)"
+          class="center-content btn btn btn-outline-danger"
+        >
+          Delete
+        </button>
+        <!-- Sustitute with status returned-->
+      </div>
+      <hr />
+      <div class="row">
+        <label id="updateFeedback"></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col pad-col">
+    <h2 class="center-text" id="createtitle">Create</h2>
+    <hr />
+
+    <div class="pad-all">
+      <!-- All attributes needed to create entity here-->
+      <div class="row">
+        <input id="get1" placeholder="Name" />
+      </div>
+      <div class="row">
+        <input id="get2" placeholder="Recovery days" />
+      </div>
+      <hr />
+
+      <!-- Create button and response -->
+      <div class="row">
+        <button
+          (click)="addElement($event)"
+          class="center-content btn btn-outline-primary"
+        >
+          Create
+        </button>
+      </div>
+      <hr />
+    </div>
+    <hr />
+    <div class="row">
+      <!-- Sustitute with status returned-->
+      <label id="creationFeedback"></label>
+    </div>
+  </div>
+</div>

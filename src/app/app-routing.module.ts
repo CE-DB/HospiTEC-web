@@ -15,6 +15,7 @@ import { AdminsyncComponent } from './adminsync/adminsync.component';
 import { LoginpatientComponent } from './loginpatient/loginpatient.component';
 import { LogindoctorComponent } from './logindoctor/logindoctor.component';
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
+import { AdminequipmentComponent } from './adminequipment/adminequipment.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,7 @@ const routes: Routes = [
     {path: "procedure", component: AdminpreceduresComponent},
     {path: "medicalroom", component: AdminmedicalroomComponent},
     {path: "bed", component: AdminbedComponent},
-    {path: "patient", component: AdminreportComponent},
+    {path: "equipment", component: AdminequipmentComponent},
     {path: "sync", component: AdminsyncComponent}
   ]},
   {path:"patientlogin", component: LoginpatientComponent},

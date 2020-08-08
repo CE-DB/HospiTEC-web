@@ -3,8 +3,6 @@ import { Router } from "@angular/router";
 import { CRUD } from '../interfaces/crud';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import { variable } from '@angular/compiler/src/output/output_ast';
-import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 
 
 @Component({
@@ -64,7 +62,7 @@ export class PatientregisterComponent implements OnInit, CRUD {
   updateQuery = gql`
   mutation updatePatient($oi: String!, $fn: String, $ln: String!, $pn: String, $canton: String!, $province: String!, $address: String!, $bd: Date!){
     updatePatient(input: {
-      oldId: $io
+      oldId: $oi
       firstName: $fn
       lastName: $ln
       phoneNumber: $pn
@@ -72,7 +70,9 @@ export class PatientregisterComponent implements OnInit, CRUD {
       province: $province
       address: $address
       birthDate: $bd
-    })
+    }){
+      firstName
+    }
   }`;
 
   deleteQuery: object;
@@ -90,7 +90,7 @@ export class PatientregisterComponent implements OnInit, CRUD {
                     canton: (<HTMLInputElement>document.getElementById("get5")).value,
                     province: (<HTMLInputElement>document.getElementById("get6")).value,
                     address: (<HTMLInputElement>document.getElementById("get7")).value,
-                    birthDate: new Date((<HTMLInputElement>document.getElementById("get8")).value)}
+                    bd: new Date((<HTMLInputElement>document.getElementById("get8")).value)}
       }).subscribe(({data}) => {
         document.getElementById("creationFeedback").innerHTML = "Successful creation";
         this.addPassword();
@@ -111,7 +111,7 @@ export class PatientregisterComponent implements OnInit, CRUD {
                     pass: (<HTMLInputElement>document.getElementById("get9")).value}
       }).subscribe(({data}) => {
         document.getElementById("authFeedback").innerHTML = "Created user, log in with identification and password";
-        localStorage.setItem("patientid", data.createPatient.identification);
+        localStorage.setItem("patientid", data.addPassword.identification);
       }, (error) => {
         document.getElementById("authFeedback").innerHTML = error;
       })
@@ -123,15 +123,25 @@ export class PatientregisterComponent implements OnInit, CRUD {
 
   updateElement(event: any) {
     try {
+      let tempDate;
+      if ((<HTMLInputElement>document.getElementById("input7")).value == "") {
+        tempDate = this.elementList[this.currentElementIndex].birthDate;
+      }
+      else {
+        tempDate = new Date((<HTMLInputElement>document.getElementById("input7")).value);
+      }
+      console.log(tempDate);
       this.apollo.mutate<any>({
         mutation: this.updateQuery,
-        variables: {oi: (<HTMLInputElement>document.getElementById("input1")).value,
-                    fn: (<HTMLInputElement>document.getElementById("input2")).value,
+        refetchQueries: [{query: this.entityQuery}],
+        variables: {oi: localStorage.getItem("patientid"),
+                    fn: (<HTMLInputElement>document.getElementById("input1")).value,
+                    ln: (<HTMLInputElement>document.getElementById("input2")).value,
                     pn: (<HTMLInputElement>document.getElementById("input3")).value,
                     province: (<HTMLInputElement>document.getElementById("input4")).value,
                     canton: (<HTMLInputElement>document.getElementById("input5")).value,
                     address: (<HTMLInputElement>document.getElementById("input6")).value,
-                    bd: new Date((<HTMLInputElement>document.getElementById("input7")).value)}
+                    bd: tempDate}
       }).subscribe(({data}) => {
           document.getElementById("updateFeedback").innerHTML = "Updated profile";
       }, (error) => {
@@ -155,18 +165,19 @@ export class PatientregisterComponent implements OnInit, CRUD {
         query: this.entityQuery
       }).valueChanges.subscribe(signal => {
         this.elementList = signal.data.patients;
+        this.selectCurrentPatient();
       })
-
-      let i;
-      for (i = 0; i < this.elementList.length; i++) {
-        if (localStorage.getItem("patientid") == this.elementList[i]) {
-          this.currentElementIndex = i;
-          break;
-        }
-      }
-
-
     }
 
   }
+
+  selectCurrentPatient() {
+    let i;
+    for (i = 0; i < this.elementList.length; i++) {
+      if (localStorage.getItem("patientid") == this.elementList[i].identification) {
+        this.currentElementIndex = i;
+        break;
+      }
+    }
+  } 
 }

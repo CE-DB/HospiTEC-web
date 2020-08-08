@@ -1,0 +1,39 @@
+
+#entitytitle {
+    color: var(--success-color);
+}
+
+#edittitle {
+    color: var(--update-color);
+}
+
+#createtitle {
+    color: var(--create-color);
+}
+
+#navbar-separator {
+    margin: 0;
+    border-color: var(--create-color);
+}
+
+.center-text {
+    text-align: center;
+}
+
+.center-content {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.pad-col {
+    padding: 2rem;
+}
+
+.pad-all * {
+    padding: 5px;
+}
+
+.pad-list * {
+    padding: 1px
+}

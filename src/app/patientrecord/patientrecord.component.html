@@ -1,1 +1,118 @@
-<p>patientrecord works!</p>
+<hr id="navbar-separator" />
+<!-- Admin nav bar -->
+<nav class="navbar navbar-light bg-light nav-pills nav-fill">
+  <a href="patient/register" class="nav-link">Register</a>
+  <a href="patient/record" class="nav-link">Record</a>
+  <a href="patient/reservation" class="nav-link">Reservation</a>
+  <a href="patient/evaluation" class="nav-link">Evaluation</a>
+</nav>
+<hr id="navbar-separator" />
+
+<div class="row">
+  <!-- Entity col -->
+  <div class="col-sm pad-col">
+    <!-- Entity name here-->
+    <h2 class="center-text" id="entitytitle">
+      Record entries by diagnostic date
+    </h2>
+    <hr />
+    <!--Set up for loop accordingly-->
+    <div class="pad-list" *ngFor="let element of elementList">
+      <div clas="row">
+        <button
+          (click)="selectElement($event)"
+          class="center-content btn btn-outline-dark"
+          id="{{ element.diagnosticDate }}"
+        >
+          {{ element.diagnosticDate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--Edit column-->
+
+  <div class="col-sm pad-col">
+    <h2 class="center-text" id="edittitle">Info</h2>
+    <hr />
+    <!-- Every attribute should follow this-->
+    <h2>Appointment details</h2>
+    <label>Procedure</label>
+    <div class="row">
+      <select id="proceduresSelect" (change)="selectProcedure()"> </select>
+    </div>
+
+
+    <div class="row">
+        <h3>Execution day</h3>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="currentProcedureIndex; else elseBlock1">
+        <label>{{
+          elementList[currentElementIndex].Appointment[currentProcedureIndex].executionDate || "No execution day"
+        }}</label>
+      </ng-container>
+      <ng-template #elseBlock1>No execution day</ng-template>
+    </div>
+
+    <div class="row">
+        <h3>Days to recover</h3>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="currentProcedureIndex; else elseBlock2">
+        <label>{{
+          elementList[currentElementIndex].Appointment[currentProcedureIndex].procedure.recoveringDays || "No recovering days"
+        }}</label>
+      </ng-container>
+      <ng-template #elseBlock2>No recovering days</ng-template>
+    </div>
+
+    <hr />
+    <h2>Diagnosis details</h2>
+    <div class="pad-all">
+      <div class="row">
+        <h3>Description</h3>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock3">
+          <label>{{
+            elementList[currentElementIndex].treatment || "No treatment found"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock3>No treatment found</ng-template>
+      </div>
+
+      <div class="row">
+        <h3>Pathology diagnosed</h3>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock4">
+          <label>{{
+            elementList[currentElementIndex].pathologyName ||
+              "No pathology found"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock4>No pathology found</ng-template>
+      </div>
+
+      <div class="row">
+        <h3>Date of diagnosis</h3>
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock5">
+          <label>{{
+            elementList[currentElementIndex].diagnosticDate ||
+              "No diagnostic date found"
+          }}</label>
+        </ng-container>
+        <ng-template #elseBlock5>No diagnostic date found</ng-template>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <label id="feedback"></label>
+      </div>
+    </div>
+  </div>
+</div>

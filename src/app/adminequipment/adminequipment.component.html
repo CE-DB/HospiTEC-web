@@ -16,7 +16,7 @@
   <div class="col-sm pad-col">
     <!-- Entity name here-->
     <h2 class="center-text" id="entitytitle">
-      Beds
+      Equipment
     </h2>
     <hr />
     <!--Set up for loop accordingly-->
@@ -25,72 +25,70 @@
         <button
           (click)="selectElement($event.target.attributes.id.nodeValue)"
           class="center-content btn btn-outline-dark"
-          id="{{ element.id }}"
+          id="{{ element.serialNumber }}"
         >
-          {{ element.id }}
+          {{ element.name }}
         </button>
       </div>
     </div>
   </div>
-
   <div class="col pad-col">
-    <h2 class="center-text" id="edittitle">Edit Room</h2>
+    <h2 class="center-text" id="edittitle">Edit Profile</h2>
     <div class="row">
       <ng-container *ngIf="elementList; else elseBlock0">
-        <label>id: {{ 
-          elementList[currentElementIndex].id || "No name selected"
+        <label>{{
+          elementList[currentElementIndex].name || "No name selected"
         }}</label>
       </ng-container>
-      <ng-template #elseBlock0>No bed selected</ng-template>
+      <ng-template #elseBlock0>No equipment selected</ng-template>
     </div>
     <div class="row">
-      <input id="input0" placeholder="New id" />
+      <input id="input0" placeholder="New name" />
     </div>
 
     <!-- Every attribute should follow this-->
     <div class="row">
       <ng-container *ngIf="elementList; else elseBlock1">
-        <label>ICU state: 
+        <label>
           {{
-            elementList[currentElementIndex].isIcu || "No equipment selected"
+            elementList[currentElementIndex].serialNumber ||
+              "No equipment selected"
           }}</label
         >
       </ng-container>
-      <ng-template #elseBlock1>No bed selected</ng-template>
+      <ng-template #elseBlock1>No equipment selected</ng-template>
     </div>
     <div class="row">
-      <input id="input1" placeholder="New ICU state" />
+      <input id="input1" placeholder="New serial number" />
     </div>
     <div class="row">
-      <ng-container *ngIf="elementList; else elseBlock3">
-        <label>Room id: 
-          {{
-            elementList[currentElementIndex].idRoom ||
-              "No bed selected"
-          }}</label
-        >
-      </ng-container>
-      <ng-template #elseBlock3>No bed selected</ng-template>
-    </div>
-    <div class="row">
-      <input id="input2" placeholder="New room id" />
-    </div>
-    <div class="row">
-        <h2>Add Equipment</h2>
-    </div>
-    <div class="row">
-      <ng-container *ngIf="elementList; else elseBlock4">
-        <label>Equipment : 
-          {{
-            elementList[currentElementIndex].equipment || "No bed selected"
-          }}</label
-        >
-      </ng-container>
-      <ng-template #elseBlock4>No bed selected</ng-template>
-    </div>
-    <div class="row">
-      <input id="input3" placeholder="New equipment" />
-    </div>
+        <ng-container *ngIf="elementList; else elseBlock2">
+          <label>
+            {{
+              elementList[currentElementIndex].stock ||
+                "No equipment selected"
+            }}</label
+          >
+        </ng-container>
+        <ng-template #elseBlock2>No equipment selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input2" placeholder="New stock" />
+      </div>
+      <div class="row">
+        <ng-container *ngIf="elementList; else elseBlock3">
+          <label>
+            {{
+              elementList[currentElementIndex].provider ||
+                "No equipment selected"
+            }}</label
+          >
+        </ng-container>
+        <ng-template #elseBlock3>No equipment selected</ng-template>
+      </div>
+      <div class="row">
+        <input id="input3" placeholder="New provider" />
+      </div>
 
     <div class="pad-all">
       <hr />
@@ -128,13 +126,18 @@
     <div class="pad-all">
       <!-- All attributes needed to create entity here-->
       <div class="row">
-        <input id="get1" placeholder="id" />
+        <input id="get1" placeholder="Name" />
       </div>
       <div class="row">
-        <input id="get2" placeholder="ICU state" />
+        <input id="get2" placeholder="Serial Number" />
       </div>
       <div class="row">
-        <input id="get3" placeholder="Room ID" />
+        <input id="get3" placeholder="Stock" />
+      </div>
+      <div class="row">
+        <input id="get4" placeholder="Provider" />
+      </div>
+      <hr />
 
       <!-- Create button and response -->
       <div class="row">
