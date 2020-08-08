@@ -7,8 +7,8 @@ export interface CRUD {
     updateQuery: object;
     deleteQuery: object;
 
-    selectElement(event: any): null;
-    addElement(event: any): null;
-    updateElement(event: any): null;
-    deleteElement(event: any): null;
+    selectElement(event: any): void;
+    addElement(event: any): void;
+    updateElement(event: any): void;
+    deleteElement(event: any): void;
 }

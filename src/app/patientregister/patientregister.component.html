@@ -9,25 +9,9 @@
 <hr id="navbar-separator">    
 
 <div class="row">
-
-    <!-- Entity col -->
-    <div class="col-sm pad-col">
-        <!-- Entity name here-->
-        <h2 class="center-text" id="entitytitle">Patient</h2>
-        <hr>
-        <!--Set up for loop accordingly-->
-        <div class="pad-list" *ngFor="let element of elementList;">
-            <div clas="row">
-                <button (click)="selectElement($event)"  class="center-content btn btn-outline-dark"
-                    id="{{element.firstName}}">
-                    {{element.firstName}}
-                </button>
-            </div>
-        </div>
-    </div>
         
     <div class="col-sm pad-col">
-        <h2 class="center-text" id="edittitle">Edit</h2>
+        <h2 class="center-text" id="edittitle">Edit Profile</h2>
         <hr>
         <!-- Every attribute should follow this-->
         <div class="pad-all">
@@ -79,13 +63,6 @@
             </div>
             <hr>
             <div class="row">
-                <button (click)="deleteElement($event)" class="center-content btn btn btn-outline-danger">
-                    Delete
-                </button>
-            <!-- Sustitute with status returned-->
-            </div>
-            <hr>
-            <div class="row">
                 <label>{{"Cambios realizados se mostraran aquí"}}</label>
             </div>
         </div>
@@ -100,18 +77,32 @@
             
             <!-- All attributes needed to create entity here-->
             <div class="row">
-                <input id="get1" placeholder="Name">
+                <input id="get1" placeholder="Identification">
             </div>
             <div class="row">
-                <input id="get2" placeholder="Description">
+                <input id="get2" placeholder="First Name">
             </div>
             <div class="row">
-                <input id="get3" placeholder="Symptoms">
+                <input id="get3" placeholder="Last Name">
             </div>
             <div class="row">
-                <input id="get4" placeholder="Treatment">
+                <input id="get4" placeholder="Phone Number">
             </div>
-
+            <div class="row">
+                <input id="get5" placeholder="Canton">
+            </div>
+            <div class="row">
+                <input id="get6" placeholder="Province">
+            </div>
+            <div class="row">
+                <input id="get7" placeholder="Address">
+            </div>
+            <div class="row">
+                <input id="get8" placeholder="Birthday">
+            </div>
+            <div class="row">
+                <input id="get9" placeholder="Password">
+            </div>
             <hr>
 
             <!-- Create button and response -->
@@ -123,7 +114,9 @@
             <hr>
             <div class="row">
                 <!-- Sustitute with status returned-->
-                <label>{{"Estado de creación se mostrará aquí"}}</label>
+                <label id="creationFeedback"></label>
+                
+                <label id="authFeedback"></label>
             </div>
         </div>
     </div>

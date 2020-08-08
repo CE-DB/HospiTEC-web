@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { Apollo } from "apollo-angular";
+import gql from "graphql-tag";
 
 @Component({
   selector: 'app-loginpatient',
@@ -7,23 +9,38 @@ import { Router } from "@angular/router";
   styleUrls: ['./loginpatient.component.css']
 })
 export class LoginpatientComponent implements OnInit {
+  roleString = "patient";
 
-  constructor(private router: Router) { }
+  authQuery = gql`
+  mutation authentication($id: String!, $pass: String!, $role: String!){
+    authentication(id: $id, password: $pass, role: $role) {
+      role
+      accessKey
+    }
+  }`
+
+  constructor(private apollo: Apollo, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   sendInfo() {
-    let userString = (<HTMLInputElement>document.getElementById("user")).value;
-    let passString = (<HTMLInputElement>document.getElementById("pass")).value;
-    /*
-    pedit auth token conforme rol
-    */
-
-
-    localStorage.setItem("PatientToken", passString);
-    this.router.navigate(["/patient"]);
-
+    try{
+      this.apollo.mutate<any>({
+        mutation: this.authQuery,
+        variables: {id: (<HTMLInputElement>document.getElementById("user")).value,
+                    pass: (<HTMLInputElement>document.getElementById("pass")).value,
+                    role: this.roleString}
+      }).subscribe(({data}) => {
+        localStorage.setItem("PatientToken", data.authentication.accessKey);
+        this.router.navigate(["/patient"]);
+      }, (error) => {
+        document.getElementById("feedback").innerHTML = "There was an error, please check the provided information"
+      })
+    }
+    catch(e) {
+      document.getElementById("feedback").innerHTML = "There was an error sending the query"
+    }
   }
 
 }
