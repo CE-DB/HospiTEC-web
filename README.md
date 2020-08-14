@@ -1,3 +1,3 @@
 # Hospitecapp
 
-This platform allows easy management for a health center patient, starff or administrator.
+This platform allows easy management for a healthcenter that manages patients, staff and administrators.
